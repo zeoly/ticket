@@ -1,7 +1,13 @@
 package com.yahacode.ticket.invoker;
 
+import com.yahacode.ticket.common.UrlConsts;
+import com.yahacode.ticket.model.CaptchaResponse;
+import com.yahacode.ticket.model.PassengersQueryResponse;
 import com.yahacode.ticket.model.QueryResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
@@ -13,14 +19,15 @@ import java.util.Map;
 @Component
 public class QueryInvoker {
 
-    private final static String URL = "https://kyfw.12306.cn/otn/leftTicket/queryA?leftTicketDTO" + ".train_date=2019"
-            + "-10-06&leftTicketDTO.from_station=CQW&leftTicketDTO.to_station=SZQ&purpose_codes=ADULT";
-
     @Autowired
     RestTemplate restTemplate;
 
-    public void queryTest() {
-        QueryResponse response = restTemplate.getForEntity(URL, QueryResponse.class).getBody();
+    public void queryLeft() {
+        HttpEntity<String> requestEntity = new HttpEntity<>(getHeaders());
+        String a = restTemplate.exchange(UrlConsts.LEFT_TICKET, HttpMethod.GET, requestEntity, String.class).getBody();
+
+        QueryResponse response = restTemplate.exchange(UrlConsts.LEFT_TICKET, HttpMethod.GET, requestEntity,
+                QueryResponse.class).getBody();
         Map<String, String> map = response.getData().getMap();
         for (String str : response.getData().getResult()) {
             String[] data = str.split("\\|");
@@ -32,5 +39,25 @@ public class QueryInvoker {
             System.out.println(output);
         }
         System.out.println(response.toString());
+    }
+
+
+    public void captchaTest() {
+        CaptchaResponse response = restTemplate.getForEntity(UrlConsts.CAPTCHA, CaptchaResponse.class).getBody();
+        System.out.println(response.getImage());
+    }
+
+    public void passengersQuery() {
+        PassengersQueryResponse response = restTemplate.getForEntity(UrlConsts.PASSENGERS_QUERY,
+                PassengersQueryResponse.class).getBody();
+        System.out.println(response.toString());
+    }
+
+    private HttpHeaders getHeaders() {
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8," +
+                "application/signed-exchange;v=b3");
+        headers.add("Accept-Encoding", "gzip, deflate, br");
+        return headers;
     }
 }

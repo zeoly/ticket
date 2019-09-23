@@ -14,8 +14,18 @@ public class TestController {
     @Autowired
     QueryInvoker queryInvoker;
 
-    @GetMapping("/test")
-    public void test(){
-        queryInvoker.queryTest();
+    @GetMapping("/query")
+    public void query() {
+        queryInvoker.queryLeft();
+    }
+
+    @GetMapping("/captcha")
+    public void captcha() {
+        queryInvoker.captchaTest();
+    }
+
+    @GetMapping("/passengers")
+    public void passengersQuery() {
+        queryInvoker.passengersQuery();
     }
 }

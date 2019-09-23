@@ -10,7 +10,7 @@ import java.util.Map;
 @Data
 public class QueryResponse {
 
-    Data data;
+    Result data;
 
     Integer httpstatus;
 
@@ -18,8 +18,8 @@ public class QueryResponse {
 
     Boolean status;
 
-    @lombok.Data
-    public class Data {
+    @Data
+    public class Result {
 
         String flag;
 
