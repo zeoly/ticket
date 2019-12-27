@@ -1,6 +1,6 @@
 package com.yahacode.ticket.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+//import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 /**
@@ -28,16 +28,16 @@ public class PassengersQueryResponse {
     @Data
     class Passenger {
 
-        @JsonProperty(value = "passenger_name")
+//        @JsonProperty(value = "passenger_name")
         String passengerName;
 
-        @JsonProperty(value = "passenger_id_type_name")
+//        @JsonProperty(value = "passenger_id_type_name")
         String passengerIdTypeName;
 
-        @JsonProperty(value = "passenger_id_no")
+//        @JsonProperty(value = "passenger_id_no")
         String passengerIdNo;
 
-        @JsonProperty(value = "mobile_no")
+//        @JsonProperty(value = "mobile_no")
         String mobileNo;
 
         String isAdult;
