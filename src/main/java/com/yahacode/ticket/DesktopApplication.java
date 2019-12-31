@@ -1,5 +1,7 @@
 package com.yahacode.ticket;
 
+import com.yahacode.ticket.fx.GridPaneFxApplication;
+import com.yahacode.ticket.fx.TableFxApplication;
 import com.yahacode.ticket.fx.TicketFxApplication;
 import javafx.application.Application;
 import org.springframework.boot.Banner;
@@ -19,6 +21,8 @@ public class DesktopApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        Application.launch(TicketFxApplication.class, args);
+//        Application.launch(TicketFxApplication.class, args);
+//        Application.launch(GridPaneFxApplication.class, args);
+        Application.launch(TableFxApplication.class, args);
     }
 }
