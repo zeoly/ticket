@@ -21,8 +21,8 @@ public class DesktopApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-//        Application.launch(TicketFxApplication.class, args);
+        Application.launch(TicketFxApplication.class, args);
 //        Application.launch(GridPaneFxApplication.class, args);
-        Application.launch(TableFxApplication.class, args);
+//        Application.launch(TableFxApplication.class, args);
     }
 }
