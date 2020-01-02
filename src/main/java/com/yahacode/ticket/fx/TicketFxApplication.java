@@ -26,6 +26,8 @@ public class TicketFxApplication extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+        final HBox hb = new HBox();
+
         TableColumn trainNoCol = new TableColumn("车次");
         TableColumn startStationCol = new TableColumn("始发站");
         TableColumn destStationCol = new TableColumn("到达站");
