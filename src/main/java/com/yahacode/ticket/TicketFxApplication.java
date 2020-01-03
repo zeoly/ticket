@@ -5,10 +5,12 @@ import com.yahacode.ticket.service.QueryService;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.DateCell;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -18,6 +20,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 import javafx.util.StringConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -48,9 +51,17 @@ public class TicketFxApplication extends AbstractJavaFxApplicationSupport {
 
         final Label startStationLabel = new Label("始发站");
         final TextField startStationText = new TextField();
+        startStationText.setText("CQW");
+        final Button exchangeBtn = new Button("<>");
         final Label destStationLabel = new Label("到达站");
         final TextField destStationText = new TextField();
+        destStationText.setText("SZQ");
         final Label startDateLabel = new Label("出发日期");
+        exchangeBtn.setOnAction(event -> {
+            String tmp = startStationText.getText();
+            startStationText.setText(destStationText.getText());
+            destStationText.setText(tmp);
+        });
         final DatePicker startDatePicker = new DatePicker();
         startDatePicker.setConverter(new StringConverter<LocalDate>() {
             DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -73,8 +84,23 @@ public class TicketFxApplication extends AbstractJavaFxApplicationSupport {
                 }
             }
         });
+        startDatePicker.setDayCellFactory(new Callback<DatePicker, DateCell>() {
+            @Override
+            public DateCell call(final DatePicker param) {
+                return new DateCell() {
+                    @Override
+                    public void updateItem(LocalDate item, boolean empty) {
+                        super.updateItem(item, empty);
+                        if (item.isBefore(LocalDate.now()) || item.isAfter(LocalDate.now().plusDays(29))) {
+                            setDisable(true);
+                            setStyle("-fx-background-color: #ffc0cb;");
+                        }
+                    }
+                };
+            }
+        });
         final Button queryButton = new Button("查询");
-        queryButton.setOnAction((ActionEvent e) -> {
+        queryButton.setOnAction(event -> {
             List<Detail> list = queryService.queryDetail(startStationText.getText(), destStationText.getText(),
                     startDatePicker.getEditor().getText());
             data.clear();
@@ -83,8 +109,10 @@ public class TicketFxApplication extends AbstractJavaFxApplicationSupport {
 
         final HBox hb = new HBox();
         hb.setSpacing(3);
-        hb.getChildren().addAll(startStationLabel, startStationText, destStationLabel, destStationText,
-                startDateLabel, startDatePicker, queryButton);
+        hb.getChildren().
+
+                addAll(startStationLabel, startStationText, exchangeBtn, destStationLabel, destStationText,
+                        startDateLabel, startDatePicker, queryButton);
 
         TableColumn trainNoCol = new TableColumn("车次");
         trainNoCol.setCellValueFactory(new PropertyValueFactory<>("trainNo"));
@@ -135,17 +163,27 @@ public class TicketFxApplication extends AbstractJavaFxApplicationSupport {
         commentCol.setMaxWidth(60);
 
         table.setItems(data);
-        table.getColumns().addAll(trainNoCol, startStationCol, destStationCol, startDateCol, destDateCol, durationCol
-                , businessClassCol, firstClassCol, secondClassCol, exclusiveSoftSleeperCol, softSleeperCol,
-                highSpeedSleeperCol, hardSleeperCol, softSeatCol, hardSeatCol, noSeatCol, otherCol, commentCol);
+        table.getColumns().
+
+                addAll(trainNoCol, startStationCol, destStationCol, startDateCol, destDateCol, durationCol,
+                        businessClassCol, firstClassCol, secondClassCol, exclusiveSoftSleeperCol, softSleeperCol,
+                        highSpeedSleeperCol, hardSleeperCol, softSeatCol, hardSeatCol, noSeatCol, otherCol, commentCol);
         table.setMaxWidth(1200);
 
         final VBox vbox = new VBox();
         vbox.setSpacing(5);
-        vbox.setPadding(new Insets(10, 0, 0, 10));
-        vbox.getChildren().addAll(hb, table);
+        vbox.setPadding(new
 
-        ((Group) scene.getRoot()).getChildren().addAll(vbox);
+                Insets(10, 0, 0, 10));
+        vbox.getChildren().
+
+                addAll(hb, table);
+
+        ((Group) scene.getRoot()).
+
+                getChildren().
+
+                addAll(vbox);
 
         primaryStage.setScene(scene);
         primaryStage.show();
