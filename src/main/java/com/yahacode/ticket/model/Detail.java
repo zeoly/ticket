@@ -45,4 +45,6 @@ public class Detail {
     private String noSeat;
 
     private String other;
+
+    private String canWebBuy;
 }
