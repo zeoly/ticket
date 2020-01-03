@@ -46,5 +46,9 @@ public class Detail {
 
     private String other;
 
+    private String candidateFlag;
+
+    private String candidateSeatLimit;
+
     private String canWebBuy;
 }

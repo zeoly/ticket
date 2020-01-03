@@ -43,7 +43,7 @@ public class TicketFxApplication extends AbstractJavaFxApplicationSupport {
     public void start(Stage primaryStage) throws Exception {
         Scene scene = new Scene(new Group());
         primaryStage.setTitle("Ticket Application Alpha");
-        primaryStage.setWidth(1150);
+        primaryStage.setWidth(1250);
         primaryStage.setHeight(550);
 
         final Label startStationLabel = new Label("始发站");
@@ -75,7 +75,8 @@ public class TicketFxApplication extends AbstractJavaFxApplicationSupport {
         });
         final Button queryButton = new Button("查询");
         queryButton.setOnAction((ActionEvent e) -> {
-            List<Detail> list = queryService.queryDetail("", "", startDatePicker.getEditor().getText());
+            List<Detail> list = queryService.queryDetail(startStationText.getText(), destStationText.getText(),
+                    startDatePicker.getEditor().getText());
             data.clear();
             data.addAll(list);
         });
@@ -99,37 +100,37 @@ public class TicketFxApplication extends AbstractJavaFxApplicationSupport {
         durationCol.setCellValueFactory(new PropertyValueFactory<>("duration"));
         TableColumn businessClassCol = new TableColumn("商务座");
         businessClassCol.setCellValueFactory(new PropertyValueFactory<>("businessClass"));
-        businessClassCol.setMaxWidth(50);
+        businessClassCol.setMaxWidth(60);
         TableColumn firstClassCol = new TableColumn("一等座");
         firstClassCol.setCellValueFactory(new PropertyValueFactory<>("firstClass"));
-        firstClassCol.setMaxWidth(50);
+        firstClassCol.setMaxWidth(60);
         TableColumn secondClassCol = new TableColumn("二等座");
         secondClassCol.setCellValueFactory(new PropertyValueFactory<>("secondClass"));
-        secondClassCol.setMaxWidth(50);
+        secondClassCol.setMaxWidth(60);
         TableColumn exclusiveSoftSleeperCol = new TableColumn("高级软卧");
         exclusiveSoftSleeperCol.setCellValueFactory(new PropertyValueFactory<>("exclusiveSoftSleeper"));
         exclusiveSoftSleeperCol.setMaxWidth(60);
         TableColumn softSleeperCol = new TableColumn("软卧");
         softSleeperCol.setCellValueFactory(new PropertyValueFactory<>("softSleeper"));
-        softSleeperCol.setMaxWidth(50);
+        softSleeperCol.setMaxWidth(60);
         TableColumn highSpeedSleeperCol = new TableColumn("动卧");
         highSpeedSleeperCol.setCellValueFactory(new PropertyValueFactory<>("highSpeedSleeper"));
-        highSpeedSleeperCol.setMaxWidth(50);
+        highSpeedSleeperCol.setMaxWidth(60);
         TableColumn hardSleeperCol = new TableColumn("硬卧");
         hardSleeperCol.setCellValueFactory(new PropertyValueFactory<>("hardSleeper"));
-        hardSleeperCol.setMaxWidth(50);
+        hardSleeperCol.setMaxWidth(60);
         TableColumn softSeatCol = new TableColumn("软座");
         softSeatCol.setCellValueFactory(new PropertyValueFactory<>("softSeat"));
-        softSeatCol.setMaxWidth(50);
+        softSeatCol.setMaxWidth(60);
         TableColumn hardSeatCol = new TableColumn("硬座");
         hardSeatCol.setCellValueFactory(new PropertyValueFactory<>("hardSeat"));
         hardSeatCol.setMaxWidth(50);
         TableColumn noSeatCol = new TableColumn("无座");
         noSeatCol.setCellValueFactory(new PropertyValueFactory<>("noSeat"));
-        noSeatCol.setMaxWidth(50);
+        noSeatCol.setMaxWidth(60);
         TableColumn otherCol = new TableColumn("其他");
         otherCol.setCellValueFactory(new PropertyValueFactory<>("other"));
-        otherCol.setMaxWidth(50);
+        otherCol.setMaxWidth(60);
         TableColumn commentCol = new TableColumn("备注");
         commentCol.setMaxWidth(60);
 
@@ -137,7 +138,7 @@ public class TicketFxApplication extends AbstractJavaFxApplicationSupport {
         table.getColumns().addAll(trainNoCol, startStationCol, destStationCol, startDateCol, destDateCol, durationCol
                 , businessClassCol, firstClassCol, secondClassCol, exclusiveSoftSleeperCol, softSleeperCol,
                 highSpeedSleeperCol, hardSleeperCol, softSeatCol, hardSeatCol, noSeatCol, otherCol, commentCol);
-        table.setMaxWidth(1100);
+        table.setMaxWidth(1200);
 
         final VBox vbox = new VBox();
         vbox.setSpacing(5);

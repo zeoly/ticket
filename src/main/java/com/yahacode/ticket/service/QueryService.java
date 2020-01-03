@@ -1,5 +1,6 @@
 package com.yahacode.ticket.service;
 
+import com.yahacode.ticket.common.SeatTypeConsts;
 import com.yahacode.ticket.invoker.QueryInvoker;
 import com.yahacode.ticket.model.Detail;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +22,8 @@ public class QueryService {
         String[] results = queryInvoker.queryLeft(startStation, destStation, date);
         List<Detail> details = new ArrayList<>();
         for (String result : results) {
-            String[] data = result.split("\\|");
+            String[] data = result.split("\\|", -1);
+            data = handleCandidate(data);
             Detail detail = Detail.builder().trainNo(data[3]).startStation(QueryInvoker.map.get(data[6])).
                     destStation(QueryInvoker.map.get(data[7])).
                     startDate(data[8]).destDate(data[9]).duration(data[10]).businessClass(data[32]).
@@ -34,5 +36,27 @@ public class QueryService {
             //map.get(data[6]) + "，" + end + "：" + map.get(data[7])
         }
         return details;
+    }
+
+    private String[] handleCandidate(String[] data) {
+        String candidateFlag = data[37];
+        if ("1".equals(candidateFlag)) {
+            String[] seatTypes = data[35].split("");
+            for (String seatType : seatTypes) {
+                String status = data[SeatTypeConsts.SEAT_TYPE_MAP.get(seatType)];
+                if ("无".equals(status)) {
+                    data[SeatTypeConsts.SEAT_TYPE_MAP.get(seatType)] = "候补";
+                    if (data[38].contains(seatType)) {
+                        data[SeatTypeConsts.SEAT_TYPE_MAP.get(seatType)] = "候补无";
+                    }
+                }
+            }
+        }
+        for (String seat : SeatTypeConsts.SEAT_TYPE_MAP.keySet()) {
+            if ("".equals(data[SeatTypeConsts.SEAT_TYPE_MAP.get(seat)])) {
+                data[SeatTypeConsts.SEAT_TYPE_MAP.get(seat)] = "--";
+            }
+        }
+        return data;
     }
 }
