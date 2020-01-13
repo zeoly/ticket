@@ -26,6 +26,11 @@ public class QueryInvoker {
     @Autowired
     RestOperations restTemplate;
 
+    public String queryStation(){
+        String station = restTemplate.getForEntity(UrlConsts.STATION_NAME, String.class).getBody();
+        return station;
+    }
+
     public String[] queryLeft(String startStation, String destStation, String date) {
         String url = UrlConsts.LEFT_TICKET.replace("{DATE}", date).replace("{START}", startStation).replace("{DEST}",
                 destStation);

@@ -9,9 +9,12 @@ import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.DateCell;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Dialog;
+import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -19,11 +22,14 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.util.Callback;
 import javafx.util.StringConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.util.JdkIdGenerator;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -49,6 +55,13 @@ public class TicketFxApplication extends AbstractJavaFxApplicationSupport {
         primaryStage.setWidth(1250);
         primaryStage.setHeight(550);
 
+        final Button loginBtn = new Button("登录");
+        loginBtn.setOnAction(event -> {
+            Dialog<String> dialog = new Dialog();
+            dialog.setTitle("车次详情");
+            dialog.setContentText("I have a great message for you!");
+            dialog.showAndWait();
+        });
         final Label startStationLabel = new Label("始发站");
         final TextField startStationText = new TextField();
         startStationText.setText("CQW");
@@ -109,10 +122,8 @@ public class TicketFxApplication extends AbstractJavaFxApplicationSupport {
 
         final HBox hb = new HBox();
         hb.setSpacing(3);
-        hb.getChildren().
-
-                addAll(startStationLabel, startStationText, exchangeBtn, destStationLabel, destStationText,
-                        startDateLabel, startDatePicker, queryButton);
+        hb.getChildren().addAll(loginBtn, startStationLabel, startStationText, exchangeBtn, destStationLabel,
+                destStationText, startDateLabel, startDatePicker, queryButton);
 
         TableColumn trainNoCol = new TableColumn("车次");
         trainNoCol.setCellValueFactory(new PropertyValueFactory<>("trainNo"));
@@ -163,27 +174,17 @@ public class TicketFxApplication extends AbstractJavaFxApplicationSupport {
         commentCol.setMaxWidth(60);
 
         table.setItems(data);
-        table.getColumns().
-
-                addAll(trainNoCol, startStationCol, destStationCol, startDateCol, destDateCol, durationCol,
-                        businessClassCol, firstClassCol, secondClassCol, exclusiveSoftSleeperCol, softSleeperCol,
-                        highSpeedSleeperCol, hardSleeperCol, softSeatCol, hardSeatCol, noSeatCol, otherCol, commentCol);
+        table.getColumns().addAll(trainNoCol, startStationCol, destStationCol, startDateCol, destDateCol, durationCol
+                , businessClassCol, firstClassCol, secondClassCol, exclusiveSoftSleeperCol, softSleeperCol,
+                highSpeedSleeperCol, hardSleeperCol, softSeatCol, hardSeatCol, noSeatCol, otherCol, commentCol);
         table.setMaxWidth(1200);
 
         final VBox vbox = new VBox();
         vbox.setSpacing(5);
-        vbox.setPadding(new
+        vbox.setPadding(new Insets(10, 0, 0, 10));
+        vbox.getChildren().addAll(hb, table);
 
-                Insets(10, 0, 0, 10));
-        vbox.getChildren().
-
-                addAll(hb, table);
-
-        ((Group) scene.getRoot()).
-
-                getChildren().
-
-                addAll(vbox);
+        ((Group) scene.getRoot()).getChildren().addAll(vbox);
 
         primaryStage.setScene(scene);
         primaryStage.show();

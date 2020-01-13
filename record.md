@@ -1,3 +1,11 @@
+```
+alert dialog ticket price
+login dialog
+captcha(https://blog.csdn.net/li_qinging/article/details/98876091)
+click positon
+login
+```
+
 ```javascript
 var seatTypeForHB = {
     SWZ: "9_商务座",
