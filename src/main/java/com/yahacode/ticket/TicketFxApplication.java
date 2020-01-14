@@ -39,7 +39,7 @@ import java.util.List;
  * @author zengyongli 2019-12-26
  */
 @SpringBootApplication
-public class TicketFxApplication extends AbstractJavaFxApplicationSupport {
+public class TicketFxApplication {
 
     private final TableView table = new TableView();
 
@@ -48,7 +48,6 @@ public class TicketFxApplication extends AbstractJavaFxApplicationSupport {
     @Autowired
     private QueryService queryService;
 
-    @Override
     public void start(Stage primaryStage) throws Exception {
         Scene scene = new Scene(new Group());
         primaryStage.setTitle("Ticket Application Alpha");
@@ -190,7 +189,4 @@ public class TicketFxApplication extends AbstractJavaFxApplicationSupport {
         primaryStage.show();
     }
 
-    public static void main(String[] args) {
-        launchApp(TicketFxApplication.class, args);
-    }
 }
