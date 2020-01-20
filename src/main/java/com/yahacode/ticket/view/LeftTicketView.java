@@ -6,6 +6,6 @@ import de.felixroske.jfxsupport.FXMLView;
 /**
  * @author zengyongli 2020-01-14
  */
-@FXMLView(value = "/left_ticket.fxml", css = "/bootstrap3.css")
+@FXMLView("/left_ticket.fxml")
 public class LeftTicketView extends AbstractFxmlView {
 }

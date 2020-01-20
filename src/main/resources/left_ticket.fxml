@@ -14,84 +14,83 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox prefHeight="400.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/8.0.171"
-      xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.yahacode.ticket.controller.LeftTicketController">
+<VBox prefHeight="400.0" prefWidth="1300.0" stylesheets="@bootstrap3.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.yahacode.ticket.controller.LeftTicketController">
     <children>
         <MenuBar VBox.vgrow="NEVER">
             <menus>
                 <Menu mnemonicParsing="false" text="File">
                     <items>
-                        <MenuItem mnemonicParsing="false" text="New"/>
-                        <MenuItem mnemonicParsing="false" text="Open…"/>
-                        <Menu mnemonicParsing="false" text="Open Recent"/>
-                        <SeparatorMenuItem mnemonicParsing="false"/>
-                        <MenuItem mnemonicParsing="false" text="Close"/>
-                        <MenuItem mnemonicParsing="false" text="Save"/>
-                        <MenuItem mnemonicParsing="false" text="Save As…"/>
-                        <MenuItem mnemonicParsing="false" text="Revert"/>
-                        <SeparatorMenuItem mnemonicParsing="false"/>
-                        <MenuItem mnemonicParsing="false" text="Preferences…"/>
-                        <SeparatorMenuItem mnemonicParsing="false"/>
-                        <MenuItem mnemonicParsing="false" text="Quit"/>
+                        <MenuItem mnemonicParsing="false" text="New" />
+                        <MenuItem mnemonicParsing="false" text="Open…" />
+                        <Menu mnemonicParsing="false" text="Open Recent" />
+                        <SeparatorMenuItem mnemonicParsing="false" />
+                        <MenuItem mnemonicParsing="false" text="Close" />
+                        <MenuItem mnemonicParsing="false" text="Save" />
+                        <MenuItem mnemonicParsing="false" text="Save As…" />
+                        <MenuItem mnemonicParsing="false" text="Revert" />
+                        <SeparatorMenuItem mnemonicParsing="false" />
+                        <MenuItem mnemonicParsing="false" text="Preferences…" />
+                        <SeparatorMenuItem mnemonicParsing="false" />
+                        <MenuItem mnemonicParsing="false" text="Quit" />
                     </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Edit">
                     <items>
-                        <MenuItem mnemonicParsing="false" text="Undo"/>
-                        <MenuItem mnemonicParsing="false" text="Redo"/>
-                        <SeparatorMenuItem mnemonicParsing="false"/>
-                        <MenuItem mnemonicParsing="false" text="Cut"/>
-                        <MenuItem mnemonicParsing="false" text="Copy"/>
-                        <MenuItem mnemonicParsing="false" text="Paste"/>
-                        <MenuItem mnemonicParsing="false" text="Delete"/>
-                        <SeparatorMenuItem mnemonicParsing="false"/>
-                        <MenuItem mnemonicParsing="false" text="Select All"/>
-                        <MenuItem mnemonicParsing="false" text="Unselect All"/>
+                        <MenuItem mnemonicParsing="false" text="Undo" />
+                        <MenuItem mnemonicParsing="false" text="Redo" />
+                        <SeparatorMenuItem mnemonicParsing="false" />
+                        <MenuItem mnemonicParsing="false" text="Cut" />
+                        <MenuItem mnemonicParsing="false" text="Copy" />
+                        <MenuItem mnemonicParsing="false" text="Paste" />
+                        <MenuItem mnemonicParsing="false" text="Delete" />
+                        <SeparatorMenuItem mnemonicParsing="false" />
+                        <MenuItem mnemonicParsing="false" text="Select All" />
+                        <MenuItem mnemonicParsing="false" text="Unselect All" />
                     </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Help">
                     <items>
-                        <MenuItem mnemonicParsing="false" text="About MyHelloApp"/>
+                        <MenuItem mnemonicParsing="false" text="About MyHelloApp" />
                     </items>
                 </Menu>
             </menus>
         </MenuBar>
         <VBox prefHeight="200.0" prefWidth="100.0">
             <children>
-                <HBox spacing="5.0">
+                <HBox alignment="CENTER_LEFT" spacing="5.0">
                     <children>
-                        <Label text="始发站"/>
-                        <TextField fx:id="startStationText" styleClass="first"/>
-                        <Button mnemonicParsing="false" onAction="#exchangeStation" text="&lt;&gt;"/>
-                        <Label text="到达站"/>
-                        <TextField fx:id="destStationText" styleClass="first"/>
-                        <Label text="出发日期"/>
-                        <DatePicker fx:id="startDatePicker"/>
-                        <Button mnemonicParsing="false" styleClass="primary" onAction="#queryByTrainNo" text="查询"/>
+                        <Label text="始发站" />
+                        <TextField fx:id="startStationText" styleClass="first" />
+                        <Button mnemonicParsing="false" onAction="#exchangeStation" text="&lt;&gt;" />
+                        <Label text="到达站" />
+                        <TextField fx:id="destStationText" styleClass="first" />
+                        <Label text="出发日期" />
+                        <DatePicker fx:id="startDatePicker" />
+                        <Button mnemonicParsing="false" onAction="#queryLeftTicket" styleClass="primary" text="查询" />
                     </children>
                     <VBox.margin>
-                        <Insets bottom="2.0" left="5.0" right="2.0" top="2.0"/>
+                        <Insets bottom="2.0" left="5.0" right="2.0" top="2.0" />
                     </VBox.margin>
                 </HBox>
                 <TableView fx:id="leftTicketTable" prefHeight="200.0" prefWidth="200.0">
                     <columns>
-                        <TableColumn fx:id="trainNoCol" prefWidth="75.0" text="车次"/>
-                        <TableColumn fx:id="startStationCol" prefWidth="75.0" text="始发站"/>
-                        <TableColumn fx:id="destStationCol" prefWidth="75.0" text="到达站"/>
-                        <TableColumn fx:id="startDateCol" prefWidth="75.0" text="始发时间"/>
-                        <TableColumn fx:id="destDateCol" prefWidth="75.0" text="到达时间"/>
-                        <TableColumn fx:id="durationCol" prefWidth="75.0" text="历时"/>
-                        <TableColumn fx:id="businessClassCol" prefWidth="75.0" text="商务座"/>
-                        <TableColumn fx:id="firstClassCol" prefWidth="75.0" text="一等座"/>
-                        <TableColumn fx:id="secondClassCol" prefWidth="75.0" text="二等座"/>
-                        <TableColumn fx:id="exclusiveSoftSleeperCol" prefWidth="75.0" text="高级软卧"/>
-                        <TableColumn fx:id="softSleeperCol" prefWidth="75.0" text="软卧"/>
-                        <TableColumn fx:id="highSpeedSleeperCol" prefWidth="75.0" text="动卧"/>
-                        <TableColumn fx:id="hardSleeperCol" prefWidth="75.0" text="硬卧"/>
-                        <TableColumn fx:id="softSeatCol" prefWidth="75.0" text="软座"/>
-                        <TableColumn fx:id="hardSeatCol" prefWidth="75.0" text="硬座"/>
-                        <TableColumn fx:id="noSeatCol" prefWidth="75.0" text="无座"/>
-                        <TableColumn fx:id="otherCol" prefWidth="75.0" text="其他"/>
+                        <TableColumn fx:id="trainNoCol" prefWidth="75.0" text="车次" />
+                        <TableColumn fx:id="startStationCol" prefWidth="75.0" text="始发站" />
+                        <TableColumn fx:id="destStationCol" prefWidth="75.0" text="到达站" />
+                        <TableColumn fx:id="startDateCol" prefWidth="75.0" text="始发时间" />
+                        <TableColumn fx:id="destDateCol" prefWidth="75.0" text="到达时间" />
+                        <TableColumn fx:id="durationCol" prefWidth="75.0" text="历时" />
+                        <TableColumn fx:id="businessClassCol" prefWidth="75.0" text="商务座" />
+                        <TableColumn fx:id="firstClassCol" prefWidth="75.0" text="一等座" />
+                        <TableColumn fx:id="secondClassCol" prefWidth="75.0" text="二等座" />
+                        <TableColumn fx:id="exclusiveSoftSleeperCol" prefWidth="75.0" text="高级软卧" />
+                        <TableColumn fx:id="softSleeperCol" prefWidth="75.0" text="软卧" />
+                        <TableColumn fx:id="highSpeedSleeperCol" prefWidth="75.0" text="动卧" />
+                        <TableColumn fx:id="hardSleeperCol" prefWidth="75.0" text="硬卧" />
+                        <TableColumn fx:id="softSeatCol" prefWidth="75.0" text="软座" />
+                        <TableColumn fx:id="hardSeatCol" prefWidth="75.0" text="硬座" />
+                        <TableColumn fx:id="noSeatCol" prefWidth="75.0" text="无座" />
+                        <TableColumn fx:id="otherCol" prefWidth="75.0" text="其他" />
                     </columns>
                 </TableView>
             </children>
