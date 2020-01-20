@@ -8,11 +8,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.DateCell;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.Callback;
 import javafx.util.StringConverter;
@@ -94,6 +90,11 @@ public class LeftTicketController implements Initializable {
         leftTicketData.addAll(list);
     }
 
+    @FXML
+    protected void queryByTrainNo(ActionEvent event) {
+        queryService.queryByTrainNo("770000G31900", "CXW", "IOQ", "2020-02-18");
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         startStationText.setText("CQW");
@@ -142,7 +143,7 @@ public class LeftTicketController implements Initializable {
     }
 
     private void initTableView() {
-        trainNoCol.setCellValueFactory(new PropertyValueFactory<>("trainNo"));
+        trainNoCol.setCellValueFactory(new PropertyValueFactory<>("stationTrainCode"));
         startStationCol.setCellValueFactory(new PropertyValueFactory<>("startStation"));
         destStationCol.setCellValueFactory(new PropertyValueFactory<>("destStation"));
         startDateCol.setCellValueFactory(new PropertyValueFactory<>("startDate"));

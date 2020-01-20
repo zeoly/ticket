@@ -4,6 +4,7 @@ import com.yahacode.ticket.common.UrlConsts;
 import com.yahacode.ticket.model.CaptchaResponse;
 import com.yahacode.ticket.model.PassengersQueryResponse;
 import com.yahacode.ticket.model.QueryResponse;
+import com.yahacode.ticket.model.TrainDetailResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -13,6 +14,7 @@ import org.springframework.web.client.RestOperations;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -26,7 +28,7 @@ public class QueryInvoker {
     @Autowired
     RestOperations restTemplate;
 
-    public String queryStation(){
+    public String queryStation() {
         String station = restTemplate.getForEntity(UrlConsts.STATION_NAME, String.class).getBody();
         return station;
     }
@@ -41,6 +43,15 @@ public class QueryInvoker {
                 restTemplate.exchange(url, HttpMethod.GET, requestEntity, QueryResponse.class).getBody();
         this.map = response.getData().getMap();
         return response.getData().getResult();
+    }
+
+    public void queryByTrainNo(String trainNo, String startStation, String destStation, String date) {
+        String url = UrlConsts.TRAIN_DETAIL.replace("{TRAIN_NO}", trainNo).replace("{START}", startStation).replace(
+                "{DEST}", destStation).replace("{DATE}", date);
+        HttpEntity<String> requestEntity = new HttpEntity<>(getHeaders());
+        TrainDetailResponse response =
+                restTemplate.exchange(url, HttpMethod.GET, requestEntity, TrainDetailResponse.class).getBody();
+        System.out.println(response.getData().getData().toString());
     }
 
 

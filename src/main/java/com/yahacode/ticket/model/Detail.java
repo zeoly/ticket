@@ -14,6 +14,8 @@ public class Detail {
 
     private String trainNo;
 
+    private String stationTrainCode;
+
     private String startStation;
 
     private String destStation;

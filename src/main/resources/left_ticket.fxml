@@ -67,7 +67,7 @@
                         <TextField fx:id="destStationText" styleClass="first"/>
                         <Label text="出发日期"/>
                         <DatePicker fx:id="startDatePicker"/>
-                        <Button mnemonicParsing="false" styleClass="primary" onAction="#queryLeftTicket" text="查询"/>
+                        <Button mnemonicParsing="false" styleClass="primary" onAction="#queryByTrainNo" text="查询"/>
                     </children>
                     <VBox.margin>
                         <Insets bottom="2.0" left="5.0" right="2.0" top="2.0"/>
