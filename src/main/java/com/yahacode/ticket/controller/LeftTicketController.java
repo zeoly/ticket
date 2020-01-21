@@ -3,6 +3,7 @@ package com.yahacode.ticket.controller;
 import com.yahacode.ticket.model.Detail;
 import com.yahacode.ticket.service.QueryService;
 import de.felixroske.jfxsupport.FXMLController;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -10,6 +11,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.util.Callback;
 import javafx.util.StringConverter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,9 +41,9 @@ public class LeftTicketController implements Initializable {
     private DatePicker startDatePicker;
 
     @FXML
-    TableView leftTicketTable;
+    TableView<Detail> leftTicketTable;
     @FXML
-    TableColumn trainNoCol;
+    TableColumn<Detail, String> trainNoCol;
     @FXML
     TableColumn startStationCol;
     @FXML
@@ -91,8 +93,9 @@ public class LeftTicketController implements Initializable {
     }
 
     @FXML
-    protected void queryByTrainNo(ActionEvent event) {
-        queryService.queryByTrainNo("770000G31900", "CXW", "IOQ", "2020-02-18");
+    protected void queryByTrainNo(String trainNo) {
+        queryService.queryByTrainNo(trainNo, startStationText.getText(), destStationText.getText(),
+                startDatePicker.getEditor().getText());
     }
 
     @Override
@@ -143,7 +146,15 @@ public class LeftTicketController implements Initializable {
     }
 
     private void initTableView() {
-        trainNoCol.setCellValueFactory(new PropertyValueFactory<>("stationTrainCode"));
+        trainNoCol.setCellValueFactory(cellData -> cellData.getValue().stationTrainCodeProperty());
+        trainNoCol.setCellFactory(value -> {
+            TableCell<Detail, String> cell = (TableCell<Detail, String>) TableColumn.DEFAULT_CELL_FACTORY.call(value);
+            cell.setOnMouseClicked(event -> {
+                Detail train = value.getTableView().getSelectionModel().getSelectedItem();
+                queryByTrainNo(train.getTrainNo());
+            });
+            return cell;
+        });
         startStationCol.setCellValueFactory(new PropertyValueFactory<>("startStation"));
         destStationCol.setCellValueFactory(new PropertyValueFactory<>("destStation"));
         startDateCol.setCellValueFactory(new PropertyValueFactory<>("startDate"));

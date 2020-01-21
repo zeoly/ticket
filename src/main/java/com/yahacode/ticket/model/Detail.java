@@ -1,5 +1,7 @@
 package com.yahacode.ticket.model;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -12,9 +14,9 @@ import lombok.Data;
 @AllArgsConstructor
 public class Detail {
 
-    private String trainNo;
+    private SimpleStringProperty trainNo = new SimpleStringProperty();
 
-    private String stationTrainCode;
+    private SimpleStringProperty stationTrainCode = new SimpleStringProperty();
 
     private String startStation;
 
@@ -53,4 +55,30 @@ public class Detail {
     private String candidateSeatLimit;
 
     private String canWebBuy;
+
+    public StringProperty stationTrainCodeProperty() {
+        return stationTrainCode;
+    }
+
+    public String getStationTrainCode() {
+        return stationTrainCode.get();
+    }
+
+    public void setStationTrainCode(String stationTrainCode) {
+        this.stationTrainCode = new SimpleStringProperty(stationTrainCode);
+        this.stationTrainCode.set(stationTrainCode);
+    }
+
+    public StringProperty trainNoProperty() {
+        return trainNo;
+    }
+
+    public String getTrainNo() {
+        return trainNo.get();
+    }
+
+    public void setTrainNo(String trainNo) {
+        this.trainNo = new SimpleStringProperty(trainNo);
+        this.trainNo.set(trainNo);
+    }
 }

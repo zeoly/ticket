@@ -25,11 +25,12 @@ public class QueryService {
             String[] data = result.split("\\|", -1);
             data = handleCandidate(data);
             Detail detail =
-                    Detail.builder().trainNo(data[2]).stationTrainCode(data[3]).startStation(QueryInvoker.map.get(data[6])).
-                            destStation(QueryInvoker.map.get(data[7])).startDate(data[8]).destDate(data[9]).duration(data[10]).businessClass(data[32]).
-                            firstClass(data[31]).secondClass(data[30]).exclusiveSoftSleeper(data[21]).softSleeper(data[23]).
-                            highSpeedSleeper(data[33]).hardSleeper(data[28]).softSeat(data[24]).
-                            hardSeat(data[29]).noSeat(data[26]).other(data[22]).canWebBuy(data[11]).build();
+                    Detail.builder().startStation(QueryInvoker.map.get(data[6])).destStation(QueryInvoker.map.get(data[7])).startDate(data[8]).destDate(data[9]).duration(data[10]).businessClass(data[32]).
+                    firstClass(data[31]).secondClass(data[30]).exclusiveSoftSleeper(data[21]).softSleeper(data[23]).
+                    highSpeedSleeper(data[33]).hardSleeper(data[28]).softSeat(data[24]).
+                    hardSeat(data[29]).noSeat(data[26]).other(data[22]).canWebBuy(data[11]).build();
+            detail.setStationTrainCode(data[3]);
+            detail.setTrainNo(data[2]);
             details.add(detail);
             String start = data[4].equals(data[6]) ? "始" : "过";
             String end = data[5].equals(data[7]) ? "终" : "过";
