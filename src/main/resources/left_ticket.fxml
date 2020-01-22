@@ -74,7 +74,7 @@
                 </HBox>
                 <TableView fx:id="leftTicketTable" prefHeight="200.0" prefWidth="200.0">
                     <columns>
-                        <TableColumn fx:id="trainNoCol" prefWidth="75.0" text="车次" />
+                        <TableColumn fx:id="trainNoCol" prefWidth="75.0" text="车次" styleClass="clickable" />
                         <TableColumn fx:id="startStationCol" prefWidth="75.0" text="始发站" />
                         <TableColumn fx:id="destStationCol" prefWidth="75.0" text="到达站" />
                         <TableColumn fx:id="startDateCol" prefWidth="75.0" text="始发时间" />

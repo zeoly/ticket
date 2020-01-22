@@ -232,6 +232,15 @@ VBox > .split-menu-button.last > .arrow-button {
 	-fx-effect: innershadow(gaussian, #204d74, 10, 0, 0, 3);
 }
 
+.column-header .label{
+	-fx-font-weight: bold;
+}
+
+.table-cell.clickable {
+	-fx-text-fill: blue;
+	-fx-underline: true;
+}
+
 /*success*/
 
 .button.success,.split-menu-button.success,.toggle-button.success,.menu-button.success,
